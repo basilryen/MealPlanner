@@ -14,4 +14,10 @@ public class Ingredient {
         this.amount = amount;
         this.measurementType = measurementType;
     }
+
+    @Override
+    public String toString() {
+        String prettyIngredient = name + ", " + amount + " " + measurementType;
+        return prettyIngredient;
+    }
 }
