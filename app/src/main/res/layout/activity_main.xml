@@ -21,7 +21,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="mealPlan"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored" />
 
     <Button
         android:text="Shopping List"
@@ -33,7 +35,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="shoppingList"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored" />
 
     <Button
         android:text="Add Recipe"
@@ -46,7 +50,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="addRecipe"/>
+        android:onClick="addRecipe"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored" />
 
     <Button
         android:text="My Recipes"
@@ -58,5 +63,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="myRecipes"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored" />
+
 </RelativeLayout>

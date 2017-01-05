@@ -19,4 +19,8 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
+    public String toString() {
+        return title;
+    }
+
 }

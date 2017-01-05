@@ -1,5 +1,6 @@
 package com.teambazomi.mealplanner;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -57,4 +58,23 @@ public class AddRecipe extends AppCompatActivity {
     }
 
     // When "Add Recipe" button is clicked, save recipe to MyRecipes.recipes()
+    public void addNewRecipe(View view){
+        EditText recipe_name = (EditText) findViewById(R.id.title);
+        EditText description = (EditText) findViewById(R.id.recipe_instructions);
+        String recTemp = recipe_name.getText().toString();
+        String desTemp = description.getText().toString();
+
+        // Create new Ingredient and save to ingredients
+        Recipe temp = new Recipe(recTemp, desTemp, ingredients);
+        MyRecipes.recipes.add(temp);
+
+
+    }
+
+    public void myRecipes(View view) {
+        Intent intent = new Intent(this, MyRecipes.class);
+        startActivity(intent);
+
+    }
+
 }
