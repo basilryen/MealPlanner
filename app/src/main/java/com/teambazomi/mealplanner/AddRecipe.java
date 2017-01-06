@@ -48,12 +48,21 @@ public class AddRecipe extends AppCompatActivity {
         String typeTemp = type.getSelectedItem().toString();
 
         // Create new Ingredient and save to ingredients
-        Ingredient temp = new Ingredient(nameTemp, amountTemp, typeTemp);
-        ingredients.add(temp);
+//        Ingredient temp = new Ingredient(nameTemp, amountTemp, typeTemp);
+//        ingredients.add(temp);
+        Ingredient temp = new Ingredient();
+        temp.remoteId = Ingredient.ingid;
+        temp.recipeId = Recipe.recid;
+        Ingredient.ingid++;
+        temp.name = nameTemp;
+        temp.amount = amountTemp;
+        temp.measurementType = typeTemp;
+        temp.save();
 
         // Populate "ingredients_list" with ingredients in current list of ingredients
+        List<Ingredient> ings = Ingredient.getAllForRecipe(Recipe.recid);
         lv = (ListView) findViewById(R.id.ingredients_list);
-        ArrayAdapter<Object> arrayAdapter = new ArrayAdapter<Object>(this, android.R.layout.simple_list_item_1, ingredients);
+        ArrayAdapter<Ingredient> arrayAdapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, ings);
         lv.setAdapter(arrayAdapter);
     }
 
@@ -64,11 +73,13 @@ public class AddRecipe extends AppCompatActivity {
         String recTemp = recipe_name.getText().toString();
         String desTemp = description.getText().toString();
 
-        // Create new Ingredient and save to ingredients
-        Recipe temp = new Recipe(recTemp, desTemp, ingredients);
-        MyRecipes.recipes.add(temp);
-
-
+        // Create new Recipe and save to MyRecipes
+        Recipe temp = new Recipe();
+        temp.remoteId = Recipe.recid;
+        Recipe.recid++;
+        temp.title = recTemp;
+        temp.description = desTemp;
+        temp.save();
     }
 
     public void myRecipes(View view) {

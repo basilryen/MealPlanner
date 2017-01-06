@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MyRecipes extends AppCompatActivity {
 
-    public static List recipes = new ArrayList();
+//    public static List recipes = new ArrayList();
     ListView lv;
 
     @Override
@@ -18,9 +18,10 @@ public class MyRecipes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_recipes);
 
-        // Populate "ingredients_list" with reciipes in current list of ingredients
-        lv = (ListView) findViewById(R.id.recipe_list);
-        ArrayAdapter<Object> arrayAdapter = new ArrayAdapter<Object>(this, android.R.layout.simple_list_item_1, recipes);
+        // Populate "ingredients_list" with ingredients in current list of ingredients
+        List<Recipe> recipes = Recipe.getAll();
+        lv = (ListView) findViewById(R.id.recipes_list);
+        ArrayAdapter<Recipe> arrayAdapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, recipes);
         lv.setAdapter(arrayAdapter);
     }
 }

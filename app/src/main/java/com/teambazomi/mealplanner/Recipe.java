@@ -2,25 +2,60 @@ package com.teambazomi.mealplanner;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 /**
  * Created by basilryen on 1/2/17.
  */
 
-public class Recipe {
+@Table(name = "Recipes")
+public class Recipe extends Model {
+    public static int recid = 0;
+    // Unique id given by server
+    @Column(name = "remote_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
+    public long remoteId;
 
-    String title;
+    // Regular fields
+    @Column(name = "Title")
+    public String title;
+    @Column(name = "Description")
     String description;
+
+    // Association to Ingredients activeandroid model
+    @Column(name = "IngredientsList", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     List ingredients = new ArrayList();
 
-    public Recipe(String title, String description, List ingredients){
+//    int serving_size;
+//    Boolean selected;
+//    String day;
+//    String mealtime;
+//    String image_path;
+
+    // default constructor
+    public Recipe(){
+        super();
+    }
+
+    public Recipe(int remoteId, String title, String description){
+        super();
+        this.remoteId = remoteId;
         this.title = title;
         this.description = description;
-        this.ingredients = ingredients;
+//        this.ingredients = ingredients;
+    }
+
+    // Method to get all Recipes
+    public static List<Recipe> getAll() {
+        return new Select()
+                .from(Recipe.class)
+                .execute();
     }
 
     public String toString() {
-        return title;
+        return title + ": " + description;
     }
 
 }

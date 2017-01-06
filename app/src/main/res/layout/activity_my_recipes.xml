@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="115dp"
             android:layout_weight="1.23"
-            android:id="@+id/recipe_list " />
+            android:id="@+id/recipes_list" />
 
         <LinearLayout
             android:orientation="horizontal"
