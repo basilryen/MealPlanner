@@ -15,8 +15,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="31dp"
         android:weightSum="1">
 
         <SearchView
@@ -29,11 +27,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView3" />
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="115dp"
-            android:layout_weight="1.23"
-            android:id="@+id/recipes_list" />
+            android:layout_height="372dp"
+            android:scrollbars="vertical"
+            android:id = "@+id/recipes_list"/>
 
         <LinearLayout
             android:orientation="horizontal"
