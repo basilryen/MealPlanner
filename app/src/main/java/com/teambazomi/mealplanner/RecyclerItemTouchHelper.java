@@ -45,6 +45,8 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.Callback {
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         if (direction == ItemTouchHelper.START) {
             mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+        } else {
+            mAdapter.onItemSwipeEnd(viewHolder.getAdapterPosition());
         }
 //        } else if (direction == ItemTouchHelper.END) {
 //            mAdapter.onItemAdd(viewHolder.getAdapterPosition());

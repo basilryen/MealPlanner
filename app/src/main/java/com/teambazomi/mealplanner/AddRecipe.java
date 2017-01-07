@@ -21,6 +21,7 @@ public class AddRecipe extends AppCompatActivity {
     EditText name;
     EditText amount;
     Spinner type;
+    List<Ingredient> ings;
     ListView lv;
 
     @Override
@@ -60,7 +61,7 @@ public class AddRecipe extends AppCompatActivity {
         temp.save();
 
         // Populate "ingredients_list" with ingredients in current list of ingredients
-        List<Ingredient> ings = Ingredient.getAllForRecipe(Recipe.recid);
+        ings = Ingredient.getAllForRecipe(Recipe.recid);
         lv = (ListView) findViewById(R.id.ingredients_list);
         ArrayAdapter<Ingredient> arrayAdapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, ings);
         lv.setAdapter(arrayAdapter);
@@ -79,13 +80,13 @@ public class AddRecipe extends AppCompatActivity {
         Recipe.recid++;
         temp.title = recTemp;
         temp.description = desTemp;
+        temp.ingredients = ings;
         temp.save();
     }
 
     public void myRecipes(View view) {
         Intent intent = new Intent(this, MyRecipes.class);
         startActivity(intent);
-
     }
 
 }

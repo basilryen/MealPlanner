@@ -66,14 +66,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     // On swipe
     @Override
     public void onItemDismiss(int position) {
-        mDataset.remove(position); // Do we need to remove from database here??!!
+        mDataset.remove(position); // NEED TO REMOVE FROM DATABASE AS WELL!
         notifyItemRemoved(position);
     }
 
-//    public void onItemAdd(int position) {
-//        mDataset.add(new Recipe(1, "title", "description"));
-//        notifyItemInserted(mDataset.size());
-//    }
+    @Override
+    public void onItemSwipeEnd(int position) {
+        Meal.mealid++;
+        // Add meal to database
+        Meal meal = new Meal();
+        meal.remoteId = Meal.mealid;
+        meal.recipe = mDataset.get(position);
+        meal.save();
+    }
 
     // Drag and drop
     @Override

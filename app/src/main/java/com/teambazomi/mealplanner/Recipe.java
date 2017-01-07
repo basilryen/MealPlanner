@@ -23,15 +23,13 @@ public class Recipe extends Model {
     public String title;
     @Column(name = "Description")
     String description;
+    @Column(name = "ServingSize")
+    int servingsize;
 
     // Association to Ingredients activeandroid model
     @Column(name = "IngredientsList", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     List ingredients = new ArrayList();
 
-//    int serving_size;
-//    Boolean selected;
-//    String day;
-//    String mealtime;
 //    String image_path;
 
     // default constructor
@@ -39,12 +37,13 @@ public class Recipe extends Model {
         super();
     }
 
-    public Recipe(int remoteId, String title, String description){
+    public Recipe(int remoteId, String title, String description, int servingsize, List<Ingredient> ingredients){
         super();
         this.remoteId = remoteId;
         this.title = title;
         this.description = description;
-//        this.ingredients = ingredients;
+        this.servingsize = servingsize;
+        this.ingredients = ingredients;
     }
 
     // Method to get all Recipes
