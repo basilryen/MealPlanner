@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.activeandroid.query.Delete;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,7 +68,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     // On swipe
     @Override
     public void onItemDismiss(int position) {
-        mDataset.remove(position); // NEED TO REMOVE FROM DATABASE AS WELL!
+        // Access swiped recipe in database
+        Recipe temp = Recipe.load(Recipe.class, mDataset.get(position).getId());
+
+        // Delete any instances of recipe in Meal Plan
+        new Delete().from(Meal.class).where("Recipe = ?", temp.getId()).execute();
+
+        // Delete from database
+        temp.delete();
+
+        // Delete from list
+        mDataset.remove(position);
         notifyItemRemoved(position);
     }
 

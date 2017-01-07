@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -13,24 +12,24 @@ import java.util.List;
  * Created by basilryen on 1/6/17.
  */
 
-public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> implements ItemTouchHelperAdapter {
+class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private List<Meal> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
+        private TextView mTextView;
 
-        public ViewHolder(View v) {
+        private ViewHolder(View v) {
             super(v);
             mTextView = (TextView) itemView.findViewById(R.id.recipe_item);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MealAdapter(List<Meal> meals) {
+    MealAdapter(List<Meal> meals) {
         mDataset = meals;
     }
 
@@ -43,8 +42,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> im
                 .inflate(R.layout.recipe_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
-        MealAdapter.ViewHolder vh = new MealAdapter.ViewHolder(v);
-        return vh;
+        return new MealAdapter.ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -65,22 +63,20 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> im
     // On swipe
     @Override
     public void onItemDismiss(int position) {
-        mDataset.remove(position); // Do we need to remove from database here??!!
+        // Load and delete recipe from database
+        Meal.load(Meal.class, mDataset.get(position).getId()).delete();
+
+        // Delete from list
+        mDataset.remove(position);
         notifyItemRemoved(position);
     }
 
     @Override
     public void onItemSwipeEnd(int position) {
-        mDataset.add(position, new Meal(0, "ADDOMGSFD", "UEYEAH!", 3, new Recipe()));
-        notifyItemInserted(position);
+        // Don't do anything for now
     }
 
-//    public void onItemAdd(int position) {
-//        mDataset.add(new Recipe(1, "title", "description"));
-//        notifyItemInserted(mDataset.size());
-//    }
-
-    // Drag and drop
+    // Drag and drop items
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {

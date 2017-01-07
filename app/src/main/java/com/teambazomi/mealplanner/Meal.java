@@ -31,7 +31,8 @@ public class Meal extends Model {
 
 
     // Association to Recipe activeandroid model
-    @Column(name = "Recipe", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+//    @Column(name = "Recipe", index = true, onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
+    @Column(name = "Recipe", index = true)
     public Recipe recipe;
 
     // default constructor
