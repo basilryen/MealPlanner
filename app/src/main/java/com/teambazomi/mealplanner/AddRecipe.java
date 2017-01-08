@@ -3,6 +3,9 @@ package com.teambazomi.mealplanner;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +20,9 @@ import java.util.List;
 public class AddRecipe extends AppCompatActivity {
 
     List ingredients = new ArrayList();
+    private RecyclerView mRecyclerView;
+    private IngredientAdapter mAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
     Button addIngredientButton;
     EditText name;
     EditText amount;
@@ -60,11 +66,25 @@ public class AddRecipe extends AppCompatActivity {
         temp.measurementType = typeTemp;
         temp.save();
 
-        // Populate "ingredients_list" with ingredients in current list of ingredients
+        // Populate ingredients_list with ingredients in current list of ingredients
         ings = Ingredient.getAllForRecipe(Recipe.recid);
-        lv = (ListView) findViewById(R.id.ingredients_list);
-        ArrayAdapter<Ingredient> arrayAdapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, ings);
-        lv.setAdapter(arrayAdapter);
+        mRecyclerView = (RecyclerView) findViewById(R.id.ingredients_list);
+        mRecyclerView.setHasFixedSize(true);
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        mAdapter = new IngredientAdapter(ings);
+        mRecyclerView.setAdapter(mAdapter);
+
+        ItemTouchHelper.Callback callback = new RecyclerItemTouchHelper(mAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mRecyclerView);
+
+        // Populate "ingredients_list" with ingredients in current list of ingredients
+//        ings = Ingredient.getAllForRecipe(Recipe.recid);
+//        lv = (ListView) findViewById(R.id.ingredients_list);
+//        ArrayAdapter<Ingredient> arrayAdapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, ings);
+//        lv.setAdapter(arrayAdapter);
     }
 
     // When "Add Recipe" button is clicked, save recipe to MyRecipes.recipes()

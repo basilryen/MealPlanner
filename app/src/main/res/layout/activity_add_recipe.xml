@@ -81,12 +81,11 @@
             android:id="@+id/ingredients_list_label"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="173dp"
-            android:id="@+id/ingredients_list"
-            android:smoothScrollbar="true"
-            style="@style/Widget.AppCompat.ListView.DropDown" />
+            android:scrollbars="vertical"
+            android:id = "@+id/ingredients_list"/>
 
         <Space
             android:layout_width="match_parent"

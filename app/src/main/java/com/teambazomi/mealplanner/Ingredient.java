@@ -53,7 +53,6 @@ public class Ingredient extends Model {
 
     @Override
     public String toString() {
-        String prettyIngredient = name + ", " + amount + " " + measurementType;
-        return prettyIngredient;
+        return name + ", " + amount + " " + measurementType;
     }
 }
