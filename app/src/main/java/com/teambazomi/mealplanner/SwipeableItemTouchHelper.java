@@ -10,11 +10,11 @@ import android.support.v7.widget.helper.ItemTouchHelper;
  * Thanks & credit to https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf#.ndllchrdz
  */
 
-public class RecyclerItemTouchHelper extends ItemTouchHelper.Callback {
+public class SwipeableItemTouchHelper extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperAdapter mAdapter;
 
-    public RecyclerItemTouchHelper(ItemTouchHelperAdapter adapter) {
+    public SwipeableItemTouchHelper(ItemTouchHelperAdapter adapter) {
         mAdapter = adapter;
     }
 
@@ -48,9 +48,5 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.Callback {
         } else {
             mAdapter.onItemSwipeEnd(viewHolder.getAdapterPosition());
         }
-//        } else if (direction == ItemTouchHelper.END) {
-//            mAdapter.onItemAdd(viewHolder.getAdapterPosition());
-//        }
-
     }
 }

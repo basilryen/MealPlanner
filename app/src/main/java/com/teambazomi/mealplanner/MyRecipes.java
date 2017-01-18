@@ -8,7 +8,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 
 import java.util.List;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -30,7 +29,7 @@ public class MyRecipes extends AppCompatActivity {
 
     //    public static List recipes = new ArrayList();
     private RecyclerView mRecyclerView;
-    private RecipeAdapter mAdapter;
+    private SwipeableItemListAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
     @Override
@@ -45,11 +44,11 @@ public class MyRecipes extends AppCompatActivity {
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new RecipeAdapter(recipes);
+        mAdapter = new SwipeableItemListAdapter(recipes);
         mRecyclerView.setAdapter(mAdapter);
 
         initSwipe();
-//        ItemTouchHelper.Callback callback = new RecyclerItemTouchHelper(mAdapter);
+//        ItemTouchHelper.Callback callback = new SwipeableItemTouchHelper(mAdapter);
 //        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
 //        touchHelper.attachToRecyclerView(mRecyclerView);
     }
@@ -57,7 +56,7 @@ public class MyRecipes extends AppCompatActivity {
 
     //////////////
     private void initSwipe() {
-        ItemTouchHelper.Callback simpleItemTouchCallback = new RecyclerItemTouchHelper(mAdapter){
+        ItemTouchHelper.Callback simpleItemTouchCallback = new SwipeableItemTouchHelper(mAdapter){
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {

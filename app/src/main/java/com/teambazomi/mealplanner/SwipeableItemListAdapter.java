@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.activeandroid.query.Delete;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
  * Created by sol on 1/5/2017.
  */
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> implements ItemTouchHelperAdapter {
+public class SwipeableItemListAdapter extends RecyclerView.Adapter<SwipeableItemListAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private List<Recipe> mDataset;
 
     // Provide a reference to the views for each data item
@@ -33,14 +32,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RecipeAdapter(List<Recipe> recipes) {
+    public SwipeableItemListAdapter(List<Recipe> recipes) {
         mDataset = recipes;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public RecipeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public SwipeableItemListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                  int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recipe_view, parent, false);

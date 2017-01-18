@@ -10,9 +10,8 @@ import java.util.List;
 
 public class MealPlan extends AppCompatActivity {
 
-    //    public static List recipes = new ArrayList();
     private RecyclerView mRecyclerView;
-    private MealAdapter mAdapter;
+    private RemovableItemListAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
     @Override
@@ -27,10 +26,10 @@ public class MealPlan extends AppCompatActivity {
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new MealAdapter(meals);
+        mAdapter = new RemovableItemListAdapter(meals);
         mRecyclerView.setAdapter(mAdapter);
 
-        ItemTouchHelper.Callback callback = new RecyclerItemTouchHelper(mAdapter);
+        ItemTouchHelper.Callback callback = new RemovableItemTouchHelper(mAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mRecyclerView);
     }

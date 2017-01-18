@@ -11,24 +11,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddRecipe extends AppCompatActivity {
 
-    List ingredients = new ArrayList();
     private RecyclerView mRecyclerView;
-    private IngredientAdapter mAdapter;
+    private RemovableItemListAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     Button addIngredientButton;
     EditText name;
     EditText amount;
     Spinner type;
-    List<Ingredient> ings;
     ListView lv;
+    List<Ingredient> ings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +37,20 @@ public class AddRecipe extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.measurements_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         measurement_dropdown.setAdapter(adapter);
+
+        // Set up for RecyclerView list
+        mRecyclerView = (RecyclerView) findViewById(R.id.ingredients_list);
+        mRecyclerView.setHasFixedSize(true);
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        ings = Ingredient.getAllForRecipe(Recipe.recid);
+        mAdapter = new RemovableItemListAdapter(ings);
+        mRecyclerView.setAdapter(mAdapter);
+
+        ItemTouchHelper.Callback callback = new RemovableItemTouchHelper(mAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mRecyclerView);
 
     }
 
@@ -55,8 +66,6 @@ public class AddRecipe extends AppCompatActivity {
         String typeTemp = type.getSelectedItem().toString();
 
         // Create new Ingredient and save to ingredients
-//        Ingredient temp = new Ingredient(nameTemp, amountTemp, typeTemp);
-//        ingredients.add(temp);
         Ingredient temp = new Ingredient();
         temp.remoteId = Ingredient.ingid;
         temp.recipeId = Recipe.recid;
@@ -66,25 +75,10 @@ public class AddRecipe extends AppCompatActivity {
         temp.measurementType = typeTemp;
         temp.save();
 
-        // Populate ingredients_list with ingredients in current list of ingredients
+        // Trying to update view to show new recipe, but this is not working yet!!
         ings = Ingredient.getAllForRecipe(Recipe.recid);
-        mRecyclerView = (RecyclerView) findViewById(R.id.ingredients_list);
-        mRecyclerView.setHasFixedSize(true);
-        mLinearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
-
-        mAdapter = new IngredientAdapter(ings);
-        mRecyclerView.setAdapter(mAdapter);
-
-        ItemTouchHelper.Callback callback = new RecyclerItemTouchHelper(mAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(mRecyclerView);
-
-        // Populate "ingredients_list" with ingredients in current list of ingredients
-//        ings = Ingredient.getAllForRecipe(Recipe.recid);
-//        lv = (ListView) findViewById(R.id.ingredients_list);
-//        ArrayAdapter<Ingredient> arrayAdapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, ings);
-//        lv.setAdapter(arrayAdapter);
+        mAdapter.notifyItemChanged(ings.size(), ings);
+       // mAdapter.notifyDataSetChanged();
     }
 
     // When "Add Recipe" button is clicked, save recipe to MyRecipes.recipes()
@@ -104,6 +98,7 @@ public class AddRecipe extends AppCompatActivity {
         temp.save();
     }
 
+    // When "My Recipes" button is clicked, open MyRecipes activity
     public void myRecipes(View view) {
         Intent intent = new Intent(this, MyRecipes.class);
         startActivity(intent);
