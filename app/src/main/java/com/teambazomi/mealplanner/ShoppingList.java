@@ -1,13 +1,18 @@
 package com.teambazomi.mealplanner;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class ShoppingList extends AppCompatActivity {
+public class ShoppingList extends Fragment {
+
+    public ShoppingList() {}
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping_list);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_shopping_list, container, false);
     }
 }

@@ -5,6 +5,8 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -21,7 +23,7 @@ import android.widget.ListView;
 
 import com.activeandroid.ActiveAndroid;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     private String[] navigationItems;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
@@ -45,6 +47,9 @@ public class MainActivity extends ActionBarActivity {
         // enable action bar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        // default home page fragment
+        showFragment(ShoppingList.class);
     }
 
     private void addDrawerItems(){
@@ -117,7 +122,8 @@ public class MainActivity extends ActionBarActivity {
 
     /** Swaps fragments in the main content view */
     private void selectItem(int position) {
-        // Open correct activity based on position
+        Class fragment = null;
+        //Open correct activity based on position
         if(position==0){
             Intent intent = new Intent(this, AddRecipe.class);
             startActivity(intent);
@@ -128,14 +134,29 @@ public class MainActivity extends ActionBarActivity {
             Intent intent = new Intent(this, MyRecipes.class);
             startActivity(intent);
         }else if(position==3){
-            Intent intent = new Intent(this, ShoppingList.class);
-            startActivity(intent);
+            fragment = ShoppingList.class;
+            showFragment(fragment);
         }
 
         // Highlight the selected item, update the title, and close the drawer
         drawerList.setItemChecked(position, true);
         setTitle(navigationItems[position]);
         drawerLayout.closeDrawer(drawerList);
+    }
+
+    private void showFragment(Class fragmentClass) {
+        Fragment fragment = null;
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        }catch(InstantiationException e){
+            e.printStackTrace();
+        } catch(IllegalAccessException e){
+            e.printStackTrace();
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.mainframe, fragment).commit();
     }
 
     @Override
