@@ -13,15 +13,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.activeandroid.ActiveAndroid;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private String[] navigationItems;
@@ -49,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         // default home page fragment
-        showFragment(ShoppingList.class);
+        showFragment(MyRecipes.class);
     }
 
     private void addDrawerItems(){
@@ -125,14 +132,14 @@ public class MainActivity extends AppCompatActivity {
         Class fragment = null;
         //Open correct activity based on position
         if(position==0){
-            Intent intent = new Intent(this, AddRecipe.class);
-            startActivity(intent);
+            fragment = AddRecipe.class;
+            showFragment(fragment);
         }else if(position==1){
             Intent intent = new Intent(this, MealPlan.class);
             startActivity(intent);
         }else if(position==2){
-            Intent intent = new Intent(this, MyRecipes.class);
-            startActivity(intent);
+            fragment = MyRecipes.class;
+            showFragment(fragment);
         }else if(position==3){
             fragment = ShoppingList.class;
             showFragment(fragment);
@@ -165,33 +172,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
     }
 
-    /**
-     * When using the ActionBarDrawerToggle, you must call it during
-     * onPostCreate() and onConfigurationChanged()...
-     */
-
-    public void addRecipe(View view) {
-        Intent intent = new Intent(this, AddRecipe.class);
-        startActivity(intent);
-
-    }
-    public void myRecipes(View view) {
-        Intent intent = new Intent(this, MyRecipes.class);
-        startActivity(intent);
-
-    }
-
-    public void shoppingList(View view) {
-        Intent intent = new Intent(this, ShoppingList.class);
-        startActivity(intent);
-
-    }
-
-    public void mealPlan(View view) {
-        Intent intent = new Intent(this, MealPlan.class);
-        startActivity(intent);
-
-    }
 
 }
 

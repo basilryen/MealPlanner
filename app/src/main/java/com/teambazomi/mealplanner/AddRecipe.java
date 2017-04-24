@@ -1,12 +1,15 @@
 package com.teambazomi.mealplanner;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,12 +18,14 @@ import android.widget.Spinner;
 
 import java.util.List;
 
-public class AddRecipe extends AppCompatActivity {
+public class AddRecipe extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RemovableItemListAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+    Button addRecipeButton;
     Button addIngredientButton;
+
     EditText name;
     EditText amount;
     Spinner type;
@@ -28,20 +33,42 @@ public class AddRecipe extends AppCompatActivity {
     List<Ingredient> ings;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_recipe);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_add_recipe, container, false);
 
+        addIngredientButton = (Button) view.findViewById(R.id.add_ingredient);
+        addIngredientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addIngredient();
+            }
+        });
+
+        addRecipeButton = (Button) view.findViewById(R.id.add_recipe);
+        addRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewRecipe();
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        View v = getView();
         // Populate "measurementType" drop-down spinner list with measurement types
-        Spinner measurement_dropdown = (Spinner) findViewById(R.id.measurementType);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.measurements_array, android.R.layout.simple_spinner_item);
+        Spinner measurement_dropdown = (Spinner) v.findViewById(R.id.measurementType);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.measurements_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         measurement_dropdown.setAdapter(adapter);
 
         // Set up for RecyclerView list
-        mRecyclerView = (RecyclerView) findViewById(R.id.ingredients_list);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.ingredients_list);
         mRecyclerView.setHasFixedSize(true);
-        mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         ings = Ingredient.getAllForRecipe(Recipe.recid);
@@ -55,12 +82,13 @@ public class AddRecipe extends AppCompatActivity {
     }
 
     // When "Add Ingredient" button is clicked, save ingredient to list of ingredients
-    public void addIngredient(View view){
+    public void addIngredient(){
+        View v = getView();
         // Get values for ingredient name, amount and measurement type
-        addIngredientButton = (Button) findViewById(R.id.add_ingredient);
-        name = (EditText) findViewById(R.id.ingredient);
-        amount = (EditText) findViewById(R.id.amount);
-        type = (Spinner) findViewById(R.id.measurementType);
+        addIngredientButton = (Button) v.findViewById(R.id.add_ingredient);
+        name = (EditText) v.findViewById(R.id.ingredient);
+        amount = (EditText) v.findViewById(R.id.amount);
+        type = (Spinner) v.findViewById(R.id.measurementType);
         String nameTemp = name.getText().toString();
         int amountTemp = Integer.parseInt(amount.getText().toString());
         String typeTemp = type.getSelectedItem().toString();
@@ -78,13 +106,15 @@ public class AddRecipe extends AppCompatActivity {
         // Trying to update view to show new recipe, but this is not working yet!!
         ings = Ingredient.getAllForRecipe(Recipe.recid);
         mAdapter.notifyItemChanged(ings.size(), ings);
-       // mAdapter.notifyDataSetChanged();
+        // mAdapter.notifyDataSetChanged();
     }
 
     // When "Add Recipe" button is clicked, save recipe to MyRecipes.recipes()
-    public void addNewRecipe(View view){
-        EditText recipe_name = (EditText) findViewById(R.id.title);
-        EditText description = (EditText) findViewById(R.id.recipe_instructions);
+    public void addNewRecipe(){
+        View v = getView();
+
+        EditText recipe_name = (EditText) v.findViewById(R.id.title);
+        EditText description = (EditText) v.findViewById(R.id.recipe_instructions);
         String recTemp = recipe_name.getText().toString();
         String desTemp = description.getText().toString();
 
@@ -96,12 +126,6 @@ public class AddRecipe extends AppCompatActivity {
         temp.description = desTemp;
         temp.ingredients = ings;
         temp.save();
-    }
-
-    // When "My Recipes" button is clicked, open MyRecipes activity
-    public void myRecipes(View view) {
-        Intent intent = new Intent(this, MyRecipes.class);
-        startActivity(intent);
     }
 
 }

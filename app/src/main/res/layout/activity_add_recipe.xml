@@ -63,7 +63,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/add_ingredient"
-            android:onClick="addIngredient"
             style="@style/Widget.AppCompat.Button.Colored" />
 
         <EditText
@@ -100,7 +99,6 @@
             android:layout_width="186dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:onClick="addNewRecipe"
             android:id="@+id/add_recipe"
             style="@style/Widget.AppCompat.Button.Colored" />
 
@@ -108,39 +106,6 @@
             android:layout_width="match_parent"
             android:layout_height="7dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <Button
-                android:text="Meal Plan"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/button3"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored" />
-
-            <Button
-                android:text="Shop List"
-                android:layout_width="73dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/button4"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored" />
-
-            <Button
-                android:text="Main Menu"
-                android:layout_width="81dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/button5"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored" />
-
-            <Button
-                android:text="My recipes"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/my_recipe"
-                android:onClick="myRecipes"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored" />
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
