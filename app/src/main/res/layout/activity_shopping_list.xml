@@ -36,40 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="408dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:text="Meal Plan"
-                android:layout_width="79dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/button"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored" />
-
-            <Button
-                android:text="Shop List"
-                android:layout_width="79dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/button2"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored" />
-
-            <Button
-                android:text="Main Menu"
-                android:layout_width="84dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/button7"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored" />
-
-            <Button
-                android:text="My Pecipes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button8"
-                android:layout_weight="1"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored" />
-        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

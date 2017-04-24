@@ -1,5 +1,6 @@
 package com.teambazomi.mealplanner;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,13 +13,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.view.View;
 import android.support.v7.app.AlertDialog;
 
 
 
-public class MyRecipes extends AppCompatActivity {
+public class MyRecipes extends Fragment {
     public List<Recipe> recipes = Recipe.getAll();
     private AlertDialog.Builder alertDialog;
     private EditText et_country;
@@ -32,16 +35,25 @@ public class MyRecipes extends AppCompatActivity {
     private SwipeableItemListAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_recipes);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_my_recipes, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+       // super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_my_recipes);
+
+        View v = getView();
 
         // List recipes from database using RecyclerView
         List<Recipe> recipes = Recipe.getAll();
-        mRecyclerView = (RecyclerView) findViewById(R.id.recipes_list);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.recipes_list);
         mRecyclerView.setHasFixedSize(true);
-        mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         mAdapter = new SwipeableItemListAdapter(recipes);

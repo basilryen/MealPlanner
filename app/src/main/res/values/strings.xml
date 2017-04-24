@@ -15,4 +15,9 @@
         <item>qt</item>
         <item>gal</item>
     </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="menu_title">Navigation Menu</string>
+    <string name="action_settings">Settings</string>
 </resources>
