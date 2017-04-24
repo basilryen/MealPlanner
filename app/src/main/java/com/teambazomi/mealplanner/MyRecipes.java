@@ -35,6 +35,7 @@ public class MyRecipes extends Fragment {
     private SwipeableItemListAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_my_recipes, container, false);

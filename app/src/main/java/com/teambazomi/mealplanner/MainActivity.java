@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         ActiveAndroid.initialize(this);
         setContentView(R.layout.activity_main);
 
-        title = drawerTitle = getTitle();
+        title = getTitle();
+        drawerTitle = "";
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById((R.id.left_drawer));
 
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(drawerTitle);
+//                getSupportActionBar().setTitle(drawerTitle);
                 invalidateOptionsMenu();
             }
         };
@@ -135,8 +136,8 @@ public class MainActivity extends AppCompatActivity {
             fragment = AddRecipe.class;
             showFragment(fragment);
         }else if(position==1){
-            Intent intent = new Intent(this, MealPlan.class);
-            startActivity(intent);
+            fragment = MealPlan.class;
+            showFragment(fragment);
         }else if(position==2){
             fragment = MyRecipes.class;
             showFragment(fragment);
