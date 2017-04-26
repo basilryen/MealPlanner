@@ -103,10 +103,10 @@ public class AddRecipe extends Fragment {
         temp.measurementType = typeTemp;
         temp.save();
 
-        // Trying to update view to show new recipe, but this is not working yet!!
+        // Trying to update view to show new ingredients, but this is not working yet!!
         ings = Ingredient.getAllForRecipe(Recipe.recid);
         mAdapter.notifyItemChanged(ings.size(), ings);
-        // mAdapter.notifyDataSetChanged();
+        //mAdapter.notifyDataSetChanged();
     }
 
     // When "Add Recipe" button is clicked, save recipe to MyRecipes.recipes()

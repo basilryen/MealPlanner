@@ -11,19 +11,13 @@
     tools:context="com.teambazomi.mealplanner.ShoppingList"
     android:weightSum="1">
 
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1">
-
-        </LinearLayout>
 
         <TextView
             android:text="Shopping List:"
@@ -32,9 +26,12 @@
             android:id="@+id/textView2"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="408dp" />
+            android:layout_height="372dp"
+            android:scrollbars="vertical"
+            android:id = "@+id/shopping_list"
+            android:layout_weight="45.50" />
 
 
     </LinearLayout>
