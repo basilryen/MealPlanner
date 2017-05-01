@@ -28,7 +28,7 @@ public class Recipe extends Model {
 
     // Association to Ingredients activeandroid model
     @Column(name = "IngredientsList", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    List ingredients = new ArrayList();
+    List<Ingredient> ingredients = new ArrayList();
 
 //    String image_path;
 
@@ -51,6 +51,10 @@ public class Recipe extends Model {
         return new Select()
                 .from(Recipe.class)
                 .execute();
+    }
+
+    public List<Ingredient> getIngredients() {
+        return this.ingredients;
     }
 
     public String toString() {

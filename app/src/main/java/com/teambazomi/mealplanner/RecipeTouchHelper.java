@@ -10,11 +10,11 @@ import android.support.v7.widget.helper.ItemTouchHelper;
  * Thanks & credit to https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf#.ndllchrdz
  */
 
-public class SwipeableItemTouchHelper extends ItemTouchHelper.Callback {
+public class RecipeTouchHelper extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperAdapter mAdapter;
 
-    public SwipeableItemTouchHelper(ItemTouchHelperAdapter adapter) {
+    public RecipeTouchHelper(ItemTouchHelperAdapter adapter) {
         mAdapter = adapter;
     }
 

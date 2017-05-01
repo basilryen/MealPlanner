@@ -1,7 +1,6 @@
 package com.teambazomi.mealplanner;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +31,7 @@ public class MyRecipes extends Fragment {
 
     //    public static List recipes = new ArrayList();
     private RecyclerView mRecyclerView;
-    private SwipeableItemListAdapter mAdapter;
+    private RecipeListAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
 
@@ -57,13 +56,13 @@ public class MyRecipes extends Fragment {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new SwipeableItemListAdapter(recipes);
+        mAdapter = new RecipeListAdapter(recipes);
         mRecyclerView.setAdapter(mAdapter);
 
         initSwipe();
 
 
-//        ItemTouchHelper.Callback callback = new SwipeableItemTouchHelper(mAdapter);
+//        ItemTouchHelper.Callback callback = new RecipeTouchHelper(mAdapter);
 //        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
 //        touchHelper.attachToRecyclerView(mRecyclerView);
     }
@@ -71,7 +70,7 @@ public class MyRecipes extends Fragment {
 
     //////////////
     private void initSwipe() {
-        ItemTouchHelper.Callback simpleItemTouchCallback = new SwipeableItemTouchHelper(mAdapter){
+        ItemTouchHelper.Callback simpleItemTouchCallback = new RecipeTouchHelper(mAdapter){
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {

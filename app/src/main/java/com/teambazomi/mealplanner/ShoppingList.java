@@ -30,20 +30,15 @@ public class ShoppingList extends Fragment {
 
         View v = getView();
 
-        // List ingredients from database using RecyclerView -- WORKING ON THIS *
-        List<Meal> meals = Meal.getAll();
-        List<Ingredient> ings = new ArrayList<>();
-        for (Meal meal : meals){
-            for(Ingredient ingredient : Ingredient.getAllForRecipe(meal.recipe.recid)){
-                ings.add(ingredient);
-            }
-        }
+        // List shopping list items from database using RecyclerView
+        List<ShoppingListItem> items = ShoppingListItem.getAll();
+
         mRecyclerView = (RecyclerView) v.findViewById(R.id.shopping_list);
         mRecyclerView.setHasFixedSize(true);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new RemovableItemListAdapter(ings);
+        mAdapter = new RemovableItemListAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
 
         ItemTouchHelper.Callback callback = new RemovableItemTouchHelper(mAdapter);

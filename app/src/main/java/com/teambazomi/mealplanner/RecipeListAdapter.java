@@ -15,7 +15,7 @@ import java.util.List;
  * Created by sol on 1/5/2017.
  */
 
-public class SwipeableItemListAdapter extends RecyclerView.Adapter<SwipeableItemListAdapter.ViewHolder> implements ItemTouchHelperAdapter {
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private List<Recipe> mDataset;
 
     // Provide a reference to the views for each data item
@@ -32,14 +32,14 @@ public class SwipeableItemListAdapter extends RecyclerView.Adapter<SwipeableItem
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public SwipeableItemListAdapter(List<Recipe> recipes) {
+    public RecipeListAdapter(List<Recipe> recipes) {
         mDataset = recipes;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public SwipeableItemListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                  int viewType) {
+    public RecipeListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                           int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recipe_view, parent, false);
@@ -84,11 +84,21 @@ public class SwipeableItemListAdapter extends RecyclerView.Adapter<SwipeableItem
     @Override
     public void onItemSwipeEnd(int position) {
         Meal.mealid++;
-        // Add meal to database
+        // Add meal to database (meals table)
         Meal meal = new Meal();
         meal.remoteId = Meal.mealid;
         meal.recipe = mDataset.get(position);
         meal.save();
+        // Add meal ingredients to shopping list items table
+        for(Ingredient ingredient : meal.recipe.getIngredients()){
+            ShoppingListItem item = new ShoppingListItem();
+            item.remoteId = ShoppingListItem.itemid;
+            item.mealId = meal.remoteId;
+            item.name = ingredient.name;
+            item.amount = ingredient.amount;
+            item.measurementType = ingredient.measurementType;
+            item.save();
+        }
     }
 
     // Drag and drop
