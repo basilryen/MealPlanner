@@ -7,10 +7,6 @@ import com.activeandroid.query.Select;
 
 import java.util.List;
 
-/**
- * Created by basilryen on 1/2/17.
- */
-
 @Table(name = "Ingredients")
 public class Ingredient extends Model {
 

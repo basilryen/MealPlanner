@@ -38,6 +38,7 @@ public class MyRecipes extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.activity_my_recipes, container, false);
     }
 
@@ -60,6 +61,8 @@ public class MyRecipes extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         initSwipe();
+
+
 //        ItemTouchHelper.Callback callback = new SwipeableItemTouchHelper(mAdapter);
 //        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
 //        touchHelper.attachToRecyclerView(mRecyclerView);

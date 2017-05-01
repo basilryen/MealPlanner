@@ -30,7 +30,7 @@ public class ShoppingList extends Fragment {
 
         View v = getView();
 
-        // List ingredients from database using RecyclerView -- WORKING ON THIS  8--D  *
+        // List ingredients from database using RecyclerView -- WORKING ON THIS *
         List<Meal> meals = Meal.getAll();
         List<Ingredient> ings = new ArrayList<>();
         for (Meal meal : meals){
