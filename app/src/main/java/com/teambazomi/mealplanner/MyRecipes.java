@@ -61,7 +61,6 @@ public class MyRecipes extends Fragment {
 
         initSwipe();
 
-
 //        ItemTouchHelper.Callback callback = new RecipeTouchHelper(mAdapter);
 //        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
 //        touchHelper.attachToRecyclerView(mRecyclerView);
@@ -125,7 +124,4 @@ public class MyRecipes extends Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
-            ////////////////
-
-
-    }
+}

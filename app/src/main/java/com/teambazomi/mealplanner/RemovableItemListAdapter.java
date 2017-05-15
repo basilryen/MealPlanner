@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import java.util.Collections;
+
 import java.util.List;
 
 /**
@@ -36,7 +36,7 @@ class RemovableItemListAdapter<T> extends RecyclerView.Adapter<RemovableItemList
     public RemovableItemListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                   int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_view, parent, false);
+                .inflate(R.layout.recipe_list_item, parent, false);
 
         return new RemovableItemListAdapter.ViewHolder(v);
     }

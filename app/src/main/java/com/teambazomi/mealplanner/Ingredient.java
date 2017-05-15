@@ -27,10 +27,9 @@ public class Ingredient extends Model {
     String measurementType;
 
     public Ingredient() {
-        super();
     }
 
-    public Ingredient(int remoteId, int recipeId, String name, int amount, String measurementType){
+    public Ingredient(long remoteId, int recipeId, String name, int amount, String measurementType){
         super();
         this.remoteId = remoteId;
         this.recipeId = recipeId;

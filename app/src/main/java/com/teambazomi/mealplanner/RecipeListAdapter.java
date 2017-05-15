@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.activeandroid.query.Delete;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,7 +46,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
                                                            int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_view, parent, false);
+                .inflate(R.layout.recipe_list_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
         ViewHolder vh = new ViewHolder(v);
@@ -52,11 +56,13 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset.get(position).toString());
 
     }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
@@ -90,7 +96,16 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         meal.recipe = mDataset.get(position);
         meal.save();
         // Add meal ingredients to shopping list items table
-        for(Ingredient ingredient : meal.recipe.getIngredients()){
+        // Convert from Json to List
+        String jsonIngredients = meal.recipe.getIngredients();
+        Type listType = new TypeToken<List<String>>() {}.getType();
+        List<String> listJsonIngredients = new Gson().fromJson(jsonIngredients, listType);
+        List<Ingredient> listIngredients = new ArrayList<>();
+        for(int i=0; i < listJsonIngredients.size(); i++){
+            listIngredients.add(i, new Gson().fromJson(listJsonIngredients.get(i), Ingredient.class));
+        }
+
+        for(Ingredient ingredient : listIngredients){
             ShoppingListItem item = new ShoppingListItem();
             item.remoteId = ShoppingListItem.itemid;
             item.mealId = meal.remoteId;

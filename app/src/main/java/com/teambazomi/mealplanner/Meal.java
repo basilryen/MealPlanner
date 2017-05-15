@@ -57,7 +57,7 @@ public class Meal extends Model {
     }
 
     public String toString() {
-        return recipe.title + ": " + recipe.description;
+        return this.recipe.title + ": " + this.recipe.description;
     }
 
 }

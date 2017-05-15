@@ -1,11 +1,14 @@
 package com.teambazomi.mealplanner;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * Created by basilryen on 1/2/17.
@@ -28,7 +31,7 @@ public class Recipe extends Model {
 
     // Association to Ingredients activeandroid model
     @Column(name = "IngredientsList", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
-    List<Ingredient> ingredients = new ArrayList();
+    String ingredients;
 
 //    String image_path;
 
@@ -37,7 +40,7 @@ public class Recipe extends Model {
         super();
     }
 
-    public Recipe(int remoteId, String title, String description, int servingsize, List<Ingredient> ingredients){
+    public Recipe(int remoteId, String title, String description, int servingsize, String ingredients){
         super();
         this.remoteId = remoteId;
         this.title = title;
@@ -53,12 +56,26 @@ public class Recipe extends Model {
                 .execute();
     }
 
-    public List<Ingredient> getIngredients() {
+    public String getIngredients() {
         return this.ingredients;
     }
 
     public String toString() {
-        return title + ": " + description;
+        String result = this.title;
+        result += ": " + this.description;
+        if(this.ingredients != null){
+            // Convert from Json to List
+            Type listType = new TypeToken<List<String>>() {}.getType();
+            List<String> listJsonIngredients = new Gson().fromJson(this.ingredients, listType);
+           // List<Ingredient> listIngredients = new ArrayList<>();
+//            for(int i=0; i < listJsonIngredients.size(); i++){
+//                listIngredients.add(i, new Gson().fromJson(listJsonIngredients.get(i), Ingredient.class));
+//            }
+            for(String i : listJsonIngredients){
+                result += i;
+            }
+        }
+        return result;
     }
 
 }
