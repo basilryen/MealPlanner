@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import com.activeandroid.query.Delete;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +23,10 @@ import java.util.List;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private List<Recipe> mDataset;
+
+    GsonBuilder builder = new GsonBuilder();
+    Gson gson = builder.excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC).create();
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -102,7 +108,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         List<String> listJsonIngredients = new Gson().fromJson(jsonIngredients, listType);
         List<Ingredient> listIngredients = new ArrayList<>();
         for(int i=0; i < listJsonIngredients.size(); i++){
-            listIngredients.add(i, new Gson().fromJson(listJsonIngredients.get(i), Ingredient.class));
+            listIngredients.add(i, gson.fromJson(listJsonIngredients.get(i), Ingredient.class));
         }
 
         for(Ingredient ingredient : listIngredients){
@@ -113,6 +119,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
             item.amount = ingredient.amount;
             item.measurementType = ingredient.measurementType;
             item.save();
+            ShoppingListItem.itemid++;
         }
     }
 
