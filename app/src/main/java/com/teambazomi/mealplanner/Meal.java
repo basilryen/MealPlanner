@@ -1,8 +1,6 @@
 package com.teambazomi.mealplanner;
 
-/**
- * Created by basilryen on 1/6/17.
- */
+
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -57,7 +55,7 @@ public class Meal extends Model {
     }
 
     public String toString() {
-        return this.recipe.title + ": " + this.recipe.description;
+        return this.recipe.title;
     }
 
 }

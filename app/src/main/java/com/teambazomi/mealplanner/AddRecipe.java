@@ -2,6 +2,7 @@ package com.teambazomi.mealplanner;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.teambazomi.mealplanner.Recipe.recid;
@@ -40,7 +42,8 @@ public class AddRecipe extends Fragment {
     EditText amount;
     Spinner type;
     ListView lv;
-    List<Ingredient> ings;
+    List<Ingredient> ings = new ArrayList<>();
+    List<Ingredient> reversed = new ArrayList<>();
     List<String> jsonIngs;
 
     GsonBuilder builder = new GsonBuilder();
@@ -85,8 +88,9 @@ public class AddRecipe extends Fragment {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        ings = Ingredient.getAllForRecipe(recid);
-        mAdapter = new RemovableItemListAdapter(ings);
+        //ings = Ingredient.getAllForRecipe(recid);
+
+        mAdapter = new RemovableItemListAdapter(reversed);
         mRecyclerView.setAdapter(mAdapter);
 
         ItemTouchHelper.Callback callback = new RemovableItemTouchHelper(mAdapter);
@@ -108,31 +112,32 @@ public class AddRecipe extends Fragment {
         String typeTemp = type.getSelectedItem().toString();
 
         // Create new Ingredient and save to ingredients
-//        Ingredient temp = new Ingredient();
-//        temp.remoteId = Ingredient.ingid;
-//        temp.recipeId = recid;
-//        Ingredient.ingid++;
-//        temp.name = nameTemp;
-//        temp.amount = amountTemp;
-//        temp.measurementType = typeTemp;
-//        temp.save();
-
         Ingredient temp = new Ingredient(Ingredient.ingid, recid, nameTemp, amountTemp, typeTemp);
         temp.save();
         Ingredient.ingid++;
 
-        // Trying to update view to show new ingredients, but this is not working yet!!
-        ings = Ingredient.getAllForRecipe(Recipe.recid);
+        ings.add(temp);
         jsonIngs = new ArrayList<>();
-        for(int i = 0; i<ings.size(); i++){
-            try {
-                jsonIngs.add(i, gson.toJson(ings.get(i), Ingredient.class));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        mAdapter.notifyItemChanged(ings.size(), ings);
+        jsonIngs.add(gson.toJson(temp, Ingredient.class));
+
+        // Trying to update view to show new ingredients, but this is not working yet!!
+//        ings = Ingredient.getAllForRecipe(Recipe.recid);
+//        jsonIngs = new ArrayList<>();
+//        for(int i = 0; i<ings.size(); i++){
+//            try {
+//                jsonIngs.add(i, gson.toJson(ings.get(i), Ingredient.class));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+        List<Ingredient> reversed = ings;
+        Collections.reverse(reversed);
+        mAdapter.updateList(reversed);
+        //mAdapter.notifyItemChanged(reversed.size(), reversed);
+        //mAdapter.mDataset = reversed;
         //mAdapter.notifyDataSetChanged();
+
     }
 
     // When "Add Recipe" button is clicked, save recipe to MyRecipes.recipes()
@@ -155,6 +160,10 @@ public class AddRecipe extends Fragment {
         temp.description = desTemp;
         temp.ingredients = jsonIngredients;
         temp.save();
+
+        // Clear
+        ings = null;
+
     }
 
 }

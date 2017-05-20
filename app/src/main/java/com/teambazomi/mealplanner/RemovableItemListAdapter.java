@@ -32,6 +32,12 @@ class RemovableItemListAdapter<T> extends RecyclerView.Adapter<RemovableItemList
         mDataset = items;
     }
 
+    //
+    public void updateList(List<Object> newlist) {
+        mDataset.clear();
+        mDataset.addAll(newlist);
+        this.notifyDataSetChanged();
+    }
     @Override
     public RemovableItemListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                   int viewType) {

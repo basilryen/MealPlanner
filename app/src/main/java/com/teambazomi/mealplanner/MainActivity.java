@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.closeDrawer(drawerList);
     }
 
-    private void showFragment(Class fragmentClass) {
+    public void showFragment(Class fragmentClass) {
         Fragment fragment = null;
 
         try {

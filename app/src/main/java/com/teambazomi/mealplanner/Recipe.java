@@ -10,9 +10,6 @@ import com.activeandroid.query.Select;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-/**
- * Created by basilryen on 1/2/17.
- */
 
 @Table(name = "Recipes")
 public class Recipe extends Model {
@@ -62,19 +59,19 @@ public class Recipe extends Model {
 
     public String toString() {
         String result = this.title;
-        result += ": " + this.description;
-        if(this.ingredients != null){
+//        result += ": " + this.description;
+//        if(this.ingredients != null){
             // Convert from Json to List
-            Type listType = new TypeToken<List<String>>() {}.getType();
-            List<String> listJsonIngredients = new Gson().fromJson(this.ingredients, listType);
+//            Type listType = new TypeToken<List<String>>() {}.getType();
+//            List<String> listJsonIngredients = new Gson().fromJson(this.ingredients, listType);
            // List<Ingredient> listIngredients = new ArrayList<>();
 //            for(int i=0; i < listJsonIngredients.size(); i++){
 //                listIngredients.add(i, new Gson().fromJson(listJsonIngredients.get(i), Ingredient.class));
 //            }
-            for(String i : listJsonIngredients){
-                result += i;
-            }
-        }
+//            for(String i : listJsonIngredients){
+//                result += i;
+//            }
+//        }
         return result;
     }
 
