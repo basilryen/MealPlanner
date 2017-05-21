@@ -45,7 +45,7 @@ public class AddRecipe extends Fragment {
     ListView lv;
     List<Ingredient> ings = new ArrayList<>();
     List<Ingredient> reversed = new ArrayList<>();
-    List<String> jsonIngs;
+    List<String> jsonIngs = new ArrayList<>();
 
     GsonBuilder builder = new GsonBuilder();
     Gson gson = builder.excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC).create();
@@ -118,27 +118,11 @@ public class AddRecipe extends Fragment {
         Ingredient.ingid++;
 
         ings.add(temp);
-        jsonIngs = new ArrayList<>();
         jsonIngs.add(gson.toJson(temp, Ingredient.class));
-
-        // Trying to update view to show new ingredients, but this is not working yet!!
-//        ings = Ingredient.getAllForRecipe(Recipe.recid);
-//        jsonIngs = new ArrayList<>();
-//        for(int i = 0; i<ings.size(); i++){
-//            try {
-//                jsonIngs.add(i, gson.toJson(ings.get(i), Ingredient.class));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
 
         List<Ingredient> reversed = ings;
         Collections.reverse(reversed);
         mAdapter.updateList(reversed);
-        //mAdapter.notifyItemChanged(reversed.size(), reversed);
-        //mAdapter.mDataset = reversed;
-        //mAdapter.notifyDataSetChanged();
-
     }
 
     // When "Add Recipe" button is clicked, save recipe to MyRecipes.recipes()
@@ -172,7 +156,7 @@ public class AddRecipe extends Fragment {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack
+        // and add the transaction to the back stack
         transaction.replace(R.id.mainframe, newFragment);
         transaction.addToBackStack(null);
 
