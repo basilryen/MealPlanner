@@ -164,13 +164,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.mainframe, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.mainframe, fragment).addToBackStack(null).commit();
     }
 
     @Override
     public void setTitle(CharSequence newTitle) {
         title = newTitle;
         getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
 
