@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ShoppingList extends Fragment {
@@ -32,6 +34,12 @@ public class ShoppingList extends Fragment {
 
         // List shopping list items from database using RecyclerView
         List<ShoppingListItem> items = ShoppingListItem.getAll();
+        Collections.sort(items, new Comparator<ShoppingListItem>() {
+            @Override
+            public int compare(final ShoppingListItem object1, final ShoppingListItem object2) {
+                return object1.name.compareTo(object2.name);
+            }
+        });
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.shopping_list);
         mRecyclerView.setHasFixedSize(true);
@@ -45,4 +53,6 @@ public class ShoppingList extends Fragment {
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mRecyclerView);
     }
+
+
 }
