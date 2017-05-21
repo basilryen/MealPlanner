@@ -31,8 +31,7 @@
             android:layout_height="372dp"
             android:scrollbars="vertical"
             android:id = "@+id/shopping_list"
-            android:layout_weight="45.50" />
-
+             />
 
     </LinearLayout>
 </LinearLayout>

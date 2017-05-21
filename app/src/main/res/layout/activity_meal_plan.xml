@@ -30,8 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="372dp"
             android:scrollbars="vertical"
-            android:id = "@+id/meals_list"
-            android:layout_weight="45.50" />
+            android:id = "@+id/meals_list"/>
+
 
 
     </LinearLayout>
