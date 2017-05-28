@@ -32,7 +32,6 @@ class RemovableItemListAdapter<T> extends RecyclerView.Adapter<RemovableItemList
         mDataset = items;
     }
 
-    //
     public void updateList(List<Object> newlist) {
         mDataset.clear();
         mDataset.addAll(newlist);

@@ -19,11 +19,50 @@
         android:weightSum="1">
 
 
-        <TextView
-            android:text="Shopping List:"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <EditText
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/shoplist_ingredient"
+                android:hint="Ingredient"
+                android:layout_weight="0.45" />
+
+            <EditText
+                android:id="@+id/shoplist_amount"
+                android:layout_width="36dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="  #"
+                android:inputType="textPersonName"
+                android:layout_weight="0.04" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:id="@+id/shoplist_measurementType"
+                android:layout_weight="0.42" />
+
+            <Button
+                android:id="@+id/shoplist_add_ingredient"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="49dp"
+                android:layout_height="wrap_content"
+                android:text="+" />
+        </LinearLayout>
+
+
+        <TextView
             android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shopping List:"
             android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
         <android.support.v7.widget.RecyclerView

@@ -56,14 +56,16 @@
                 android:layout_height="44dp"
                 android:id="@+id/measurementType"
                 android:layout_weight="0.04" />
+
+            <Button
+                android:id="@+id/add_ingredient"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="56dp"
+                android:layout_height="wrap_content"
+                android:text="+" />
         </LinearLayout>
 
-        <Button
-            android:text="Add Ingredient"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/add_ingredient"
-            style="@style/Widget.AppCompat.Button.Colored" />
+
 
         <EditText
             android:layout_width="match_parent"

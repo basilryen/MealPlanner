@@ -30,7 +30,7 @@ public class ShoppingListItem extends Model {
         super();
     }
 
-    public ShoppingListItem(int remoteId, int mealId, String name, int amount, String measurementType){
+    public ShoppingListItem(long remoteId, int mealId, String name, int amount, String measurementType){
         super();
         this.remoteId = remoteId;
         this.mealId = mealId;
