@@ -68,6 +68,9 @@ class RemovableItemListAdapter<T> extends RecyclerView.Adapter<RemovableItemList
         }else if(item instanceof Ingredient){
             Ingredient i = (Ingredient)mDataset.get(position);
             Ingredient.load(Ingredient.class, i.getId()).delete();
+        }else if(item instanceof ShoppingListItem){
+            ShoppingListItem s = (ShoppingListItem)mDataset.get(position);
+            ShoppingListItem.load(ShoppingListItem.class, s.getId()).delete();
         }
 
         // Delete from list

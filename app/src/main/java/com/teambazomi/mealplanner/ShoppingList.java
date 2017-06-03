@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,24 +89,32 @@ public class ShoppingList extends Fragment {
         // addIngredientButton = (Button) v.findViewById(R.id.add_ingredient);
         name = (EditText) v.findViewById(R.id.shoplist_ingredient);
         amount = (EditText) v.findViewById(R.id.shoplist_amount);
-        type = (Spinner) v.findViewById( R.id.shoplist_measurementType);
+        type = (Spinner) v.findViewById(R.id.shoplist_measurementType);
+
         String nameTemp = name.getText().toString();
-        int amountTemp = Integer.parseInt(amount.getText().toString());
+        String amountTemp = amount.getText().toString();
         String typeTemp = type.getSelectedItem().toString();
 
-        // Create new ShoppingListItem and save to ShoppingListItems
-        ShoppingListItem temp = new ShoppingListItem(ShoppingListItem.itemid, recid, nameTemp, amountTemp, typeTemp);
-        temp.save();
-        ShoppingListItem.itemid++;
-        itemsTwo = items;
-        itemsTwo.add(temp);
-        Collections.sort(itemsTwo, new Comparator<ShoppingListItem>() {
-            @Override
-            public int compare(final ShoppingListItem object1, final ShoppingListItem object2) {
-                return object1.name.compareTo(object2.name);
-            }
-        });
-        mAdapter.notifyDataSetChanged();
+        if(nameTemp.length() == 0){
+            name.setError("Name required.");
+        }else if(amountTemp.length() == 0){
+            amount.setError("Amount required.");
+        } else{
+            int amountStringToInt = Integer.parseInt(amountTemp);
+            // Create new ShoppingListItem and save to ShoppingListItems
+            ShoppingListItem temp = new ShoppingListItem(ShoppingListItem.itemid, recid, nameTemp, amountStringToInt, typeTemp);
+            temp.save();
+            ShoppingListItem.itemid++;
+            itemsTwo = items;
+            itemsTwo.add(temp);
+            Collections.sort(itemsTwo, new Comparator<ShoppingListItem>() {
+                @Override
+                public int compare(final ShoppingListItem object1, final ShoppingListItem object2) {
+                    return object1.name.compareTo(object2.name);
+                }
+            });
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
 

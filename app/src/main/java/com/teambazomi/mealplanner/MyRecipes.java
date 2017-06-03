@@ -47,6 +47,7 @@ public class MyRecipes extends Fragment {
        // super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_my_recipes);
 
+
         View v = getView();
 
         // List recipes from database using RecyclerView

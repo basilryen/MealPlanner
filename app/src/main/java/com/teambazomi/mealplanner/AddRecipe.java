@@ -109,20 +109,27 @@ public class AddRecipe extends Fragment {
         amount = (EditText) v.findViewById(R.id.amount);
         type = (Spinner) v.findViewById(R.id.measurementType);
         String nameTemp = name.getText().toString();
-        int amountTemp = Integer.parseInt(amount.getText().toString());
+        String amountTemp = amount.getText().toString();
         String typeTemp = type.getSelectedItem().toString();
 
-        // Create new Ingredient and save to ingredients
-        Ingredient temp = new Ingredient(Ingredient.ingid, recid, nameTemp, amountTemp, typeTemp);
-        temp.save();
-        Ingredient.ingid++;
+        if(nameTemp.length() == 0){
+            name.setError("Name required.");
+        }else if(amountTemp.length() == 0){
+            amount.setError("Amount required.");
+        } else {
+            int amountStringToInt = Integer.parseInt(amountTemp);
+            // Create new Ingredient and save to ingredients
+            Ingredient temp = new Ingredient(Ingredient.ingid, recid, nameTemp, amountStringToInt, typeTemp);
+            temp.save();
+            Ingredient.ingid++;
 
-        ings.add(temp);
-        jsonIngs.add(gson.toJson(temp, Ingredient.class));
+            ings.add(temp);
+            jsonIngs.add(gson.toJson(temp, Ingredient.class));
 
-        List<Ingredient> reversed = ings;
-        Collections.reverse(reversed);
-        mAdapter.updateList(reversed);
+            List<Ingredient> reversed = ings;
+            Collections.reverse(reversed);
+            mAdapter.updateList(reversed);
+        }
     }
 
     // When "Add Recipe" button is clicked, save recipe to MyRecipes.recipes()

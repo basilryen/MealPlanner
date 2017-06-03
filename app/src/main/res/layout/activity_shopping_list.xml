@@ -28,7 +28,7 @@
             <EditText
                 android:layout_width="141dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:ems="10"
                 android:id="@+id/shoplist_ingredient"
                 android:hint="Ingredient"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="  #"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:layout_weight="0.04" />
 
             <Spinner
