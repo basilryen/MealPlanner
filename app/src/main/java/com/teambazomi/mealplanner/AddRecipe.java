@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,7 +44,8 @@ public class AddRecipe extends Fragment {
     EditText amount;
     Spinner type;
     ListView lv;
-    List<Ingredient> ings = new ArrayList<>();
+    static TextView ingredientsCount;
+    static List<Ingredient> ings = new ArrayList<>();
     List<Ingredient> reversed = new ArrayList<>();
     List<String> jsonIngs = new ArrayList<>();
 
@@ -77,6 +79,11 @@ public class AddRecipe extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         View v = getView();
+
+        //ShoppingListItems counter
+        ingredientsCount = (TextView) v.findViewById(R.id.ingredientsCount);
+        ingredientsCount.setText(String.valueOf(ings.size()));
+
         // Populate "measurementType" drop-down spinner list with measurement types
         Spinner measurement_dropdown = (Spinner) v.findViewById(R.id.measurementType);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.measurements_array, android.R.layout.simple_spinner_item);
@@ -129,6 +136,10 @@ public class AddRecipe extends Fragment {
             List<Ingredient> reversed = ings;
             Collections.reverse(reversed);
             mAdapter.updateList(reversed);
+
+            // Create new ShoppingListItem and save to ShoppingListItems
+            ingredientsCount.setText(String.valueOf(ings.size()));
+
         }
     }
 
@@ -169,5 +180,8 @@ public class AddRecipe extends Fragment {
 
         // Commit the transaction
         transaction.commit();
+    }
+    public static void updateListSize(){
+        ingredientsCount.setText(String.valueOf(ings.size()));
     }
 }

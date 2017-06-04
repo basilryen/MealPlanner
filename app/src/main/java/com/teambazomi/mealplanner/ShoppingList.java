@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,13 +30,14 @@ public class ShoppingList extends Fragment {
     private LinearLayoutManager mLinearLayoutManager;
 
     List<ShoppingListItem> items = ShoppingListItem.getAll();
-    List<ShoppingListItem> itemsTwo;
-
+    static List<ShoppingListItem> itemsTwo;
+    int listSize = items.size();
 
     EditText name;
     EditText amount;
     Spinner type;
     Button addItemButton;
+    static TextView shopCount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +58,11 @@ public class ShoppingList extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         View v = getView();
+
+        //ShoppingListItems counter
+        shopCount = (TextView) v.findViewById(R.id.shopCount);
+        shopCount.setText(String.valueOf(listSize));
+
         // Populate "measurementType" drop-down spinner list with measurement types
         Spinner measurement_dropdown = (Spinner) v.findViewById(R.id.shoplist_measurementType);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.measurements_array, android.R.layout.simple_spinner_item);
@@ -99,7 +106,7 @@ public class ShoppingList extends Fragment {
             name.setError("Name required.");
         }else if(amountTemp.length() == 0){
             amount.setError("Amount required.");
-        } else{
+        }else{
             int amountStringToInt = Integer.parseInt(amountTemp);
             // Create new ShoppingListItem and save to ShoppingListItems
             ShoppingListItem temp = new ShoppingListItem(ShoppingListItem.itemid, recid, nameTemp, amountStringToInt, typeTemp);
@@ -113,8 +120,14 @@ public class ShoppingList extends Fragment {
                     return object1.name.compareTo(object2.name);
                 }
             });
+
+            shopCount.setText(String.valueOf(itemsTwo.size()));
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    public static void updateListSize(){
+        shopCount.setText(String.valueOf(itemsTwo.size()));
     }
 
 
