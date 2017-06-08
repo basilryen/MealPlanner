@@ -45,7 +45,7 @@ public class AddRecipe extends Fragment {
     Spinner type;
     ListView lv;
     static TextView ingredientsCount;
-    static List<Ingredient> ings = new ArrayList<>();
+    public static List<Ingredient> ings = new ArrayList<>();
     List<Ingredient> reversed = new ArrayList<>();
     List<String> jsonIngs = new ArrayList<>();
 
@@ -131,12 +131,12 @@ public class AddRecipe extends Fragment {
             Ingredient.ingid++;
 
             ings.add(temp);
-            jsonIngs.add(gson.toJson(temp, Ingredient.class));
+
+//            jsonIngs.add(gson.toJson(temp, Ingredient.class));
 
             List<Ingredient> reversed = ings;
             Collections.reverse(reversed);
             mAdapter.updateList(reversed);
-
             // Create new ShoppingListItem and save to ShoppingListItems
             ingredientsCount.setText(String.valueOf(ings.size()));
 
@@ -152,6 +152,9 @@ public class AddRecipe extends Fragment {
         String recTemp = recipe_name.getText().toString();
         String desTemp = description.getText().toString();
 
+        for (Ingredient i:ings) {
+            jsonIngs.add(gson.toJson(i, Ingredient.class));
+        }
         // Convert from List to Json
         String jsonIngredients = new Gson().toJson(jsonIngs);
 

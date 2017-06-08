@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -70,10 +71,21 @@ class RemovableItemListAdapter<T> extends RecyclerView.Adapter<RemovableItemList
             notifyItemRemoved(position);
         }else if(item instanceof Ingredient){
             Ingredient i = (Ingredient)mDataset.get(position);
-            Ingredient.load(Ingredient.class, i.getId()).delete();
-            // Delete from list
+
+            // Ingredient not saved in database yet so we don't need to delete it
+            // Ingredient.load(Ingredient.class, i.getId()).delete();
+
+            // Delete from AddRecipe.ings
+            List<Ingredient> reversed = AddRecipe.ings;
+            Collections.reverse(reversed);
+            reversed.remove(position);
+            Collections.reverse(reversed);
+            AddRecipe.ings = reversed;
+
+            // Delete from mDataset list
             mDataset.remove(position);
             notifyItemRemoved(position);
+
             // Update list size
             AddRecipe.updateListSize();
 
