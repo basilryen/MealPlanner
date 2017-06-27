@@ -41,7 +41,8 @@ class RemovableItemListAdapter<T> extends RecyclerView.Adapter<RemovableItemList
     public RemovableItemListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                   int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_list_item, parent, false);
+                //////IN case of bug, Basil Changes this from recipe_list_item so that the cardview styles don't apply,
+                .inflate(R.layout.no_card_list_item, parent, false);
 
         return new RemovableItemListAdapter.ViewHolder(v);
     }
