@@ -1,7 +1,6 @@
 package com.teambazomi.mealplanner;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,9 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -26,7 +23,7 @@ import static com.teambazomi.mealplanner.Recipe.recid;
 public class ShoppingList extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private RemovableItemListAdapter mAdapter;
+    private CardRemovableItemListAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
 
     List<ShoppingListItem> items = ShoppingListItem.getAll();
@@ -82,7 +79,7 @@ public class ShoppingList extends Fragment {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new RemovableItemListAdapter(items);
+        mAdapter = new CardRemovableItemListAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
 
         ItemTouchHelper.Callback callback = new RemovableItemTouchHelper(mAdapter);

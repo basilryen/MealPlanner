@@ -1,10 +1,7 @@
 package com.teambazomi.mealplanner;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,11 +18,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.internal.Streams;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +29,7 @@ import static com.teambazomi.mealplanner.Recipe.recid;
 public class AddRecipe extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private RemovableItemListAdapter mAdapter;
+    private CardRemovableItemListAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     Button addRecipeButton;
     Button addIngredientButton;
@@ -98,10 +92,10 @@ public class AddRecipe extends Fragment {
 
         //ings = Ingredient.getAllForRecipe(recid);
 
-        mAdapter = new RemovableItemListAdapter(reversed);
+        mAdapter = new CardRemovableItemListAdapter(reversed);
         mRecyclerView.setAdapter(mAdapter);
 
-        ItemTouchHelper.Callback callback = new RemovableItemTouchHelper(mAdapter);
+        ItemTouchHelper.Callback callback = new CardRemovableItemTouchHelper(mAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mRecyclerView);
 

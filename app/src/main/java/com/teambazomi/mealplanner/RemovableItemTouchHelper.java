@@ -3,6 +3,8 @@ package com.teambazomi.mealplanner;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+import com.teambazomi.mealplanner.ItemTouchHelperAdapter;
+
 /**
  * Created by sol on 1/27/2017.
  * Thanks & credit to https://medium.com/@ipaulpro/drag-and-swipe-with-recyclerview-b9456d2b1aaf#.ndllchrdz for helping
